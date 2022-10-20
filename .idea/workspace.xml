@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ab386a53-cb6e-4623-831b-a94a2e7c6bca" name="Changes" comment="" />
+    <list default="true" id="ab386a53-cb6e-4623-831b-a94a2e7c6bca" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Tests/src/index.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/utils/generateContext.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Tests/utils/generateGatewayProxyEvent.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dao/dao.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/build.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/APIGatewayResponse.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/db.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/logger.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2FyqZ73SF1sGqaoxjPga39l6HNS" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -16,14 +41,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "advanced.settings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/utils&quot;,
+    &quot;nodejs.jest.jest_package&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/node_modules/jest&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/node_modules/typescript/lib&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/utils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Jest.Deletion via taskID Status Test Suite.test 1">
+    <configuration name="Deletion via taskID Status Test Suite" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/Tests/src/index.spec.ts" />
+      <test-names>
+        <test-name value="Deletion via taskID Status Test Suite" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Deletion via taskID Status Test Suite.test 1" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/Tests/src/index.spec.ts" />
+      <test-names>
+        <test-name value="Deletion via taskID Status Test Suite" />
+        <test-name value="test 1" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.Deletion via taskID Status Test Suite.test 1" />
+        <item itemvalue="Jest.Deletion via taskID Status Test Suite" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -32,7 +104,39 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1665474724862</updated>
+      <workItem from="1665474727445" duration="29158000" />
+      <workItem from="1665657767238" duration="25369000" />
+      <workItem from="1665802343668" duration="13970000" />
     </task>
+    <task id="LOCAL-00001" summary="add package.json">
+      <created>1665475366864</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1665475366864</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add package.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="add package.json" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/node_modules/aws-sdk/lib/dynamodb/document_client.d.ts</url>
+          <line>1716</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/shravanth_project$Deletion_via_taskID_Status_Test_Suite_test_1.info" NAME="Deletion via taskID Status Test Suite.test 1 Coverage Results" MODIFIED="1665654113901" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

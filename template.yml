@@ -1,0 +1,88 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Parameters:
+  shravanthTable:
+    Type: String
+    Default: 'shravanthTable'
+    Description: created a demo table
+    MinLength: 3
+    MaxLength: 50
+    AllowedPattern: ^[A-Za-z]+$
+    ConstraintDescription: 'Required parameter. Must be characters only. No numbers allowed.'
+
+
+Resources:
+  shravanthPutItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./target/src/index.shravanthPutItems
+      Runtime: nodejs16.x
+      CodeUri: .
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/LName/{LName}/ssn/{ssn}/PostShravanthForm
+            Method: POST
+
+  shravanthDeleteItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./target/src/index.shravanthDeleteItems
+      Runtime: nodejs16.x
+      CodeUri: .
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/ssn/{ssn}/DeleteShravanthForm
+            Method: DELETE
+
+  shravanthGetallItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./target/src/index.shravanthGetallItems
+      Runtime: nodejs16.x
+      CodeUri: .
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+
+  DynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref shravanthTable
+      AttributeDefinitions:
+        - AttributeName: FName
+          AttributeType: S
+        - AttributeName: ssn
+          AttributeType: S
+      KeySchema:
+        - AttributeName: FName
+          KeyType: HASH
+        - AttributeName: ssn
+          KeyType: RANGE
+
+      BillingMode: PAY_PER_REQUEST
+
