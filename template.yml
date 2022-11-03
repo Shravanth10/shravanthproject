@@ -31,6 +31,63 @@ Resources:
             Path: /FName/{FName}/LName/{LName}/ssn/{ssn}/PostShravanthForm
             Method: POST
 
+  shravanthGetItemsWithLimit:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./target/src/index.shravanthGetItemsWithLimit
+      Runtime: nodejs16.x
+      CodeUri: .
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/FetchShravanthFormWithLimit
+            Method: GET
+
+    shravanthUpdateItems:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: ./target/src/index.shravanthUpdateItems
+        Runtime: nodejs16.x
+        CodeUri: .
+        Environment:
+          Variables:
+            MyTable: !Ref shravanthTable
+        Policies:
+          - DynamoDBCrudPolicy:
+              TableName: !Ref shravanthTable
+        Events:
+          PostShravanthTable:
+            Type: Api
+            Properties:
+              Path: /FName/{FName}/LName/{LName}/ssn/{ssn}/UpdateShravanthForm
+              Method: POST
+
+  shravanthQueryItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./target/src/index.shravanthQueryItems
+      Runtime: nodejs16.x
+      CodeUri: .
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/shravanthQueryItems
+            Method: GET
+
   shravanthDeleteItems:
     Type: AWS::Serverless::Function
     Properties:

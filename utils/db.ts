@@ -1,7 +1,6 @@
 import { DocumentClient} from "aws-sdk/clients/dynamodb";
 import {log} from "./logger";
 
-
 export const dynamoDbClient = new DocumentClient({
     region: 'us-east-1'
 });
@@ -32,6 +31,30 @@ export const prepDelParams = (tableName: string, key: object): DocumentClient.De
     };
 };
 
+export const prepUpdateParams = (
+    tableName: string,
+    key: any,
+    updateExpression: string,
+    expressionAttributeNames: any,
+    expressionAttributeValues?: any): DocumentClient.UpdateItemInput => {
+
+    return {
+        TableName: tableName,
+        Key: key,
+        UpdateExpression: updateExpression,
+        ExpressionAttributeNames: expressionAttributeNames,
+        ExpressionAttributeValues: expressionAttributeValues
+    };
+};
+
+export const prepQueryParms = (tableName: string, query: string, queryParams: any): DocumentClient.QueryInput => {
+    return {
+        TableName: tableName,
+        KeyConditionExpression: query,
+        ExpressionAttributeValues: queryParams,
+    };
+};
+
 export const prepScanParams = (tableName: string): DocumentClient.ScanInput => {
     return {
         TableName: tableName,
@@ -50,14 +73,20 @@ export const del = async (params: DocumentClient.DeleteItemInput): Promise<Docum
         });
 };
 
-export const getByPartitioningKey = async <T>(params: DocumentClient.QueryInput): Promise<T[]> => {
-    return await dynamoDbClient.query(params).promise()
+export const query = async (params: DocumentClient.QueryInput): Promise<DocumentClient.QueryOutput> => {
+
+    return dynamoDbClient.query(params).promise()
         .catch(err => {
-            log.error("Error while fetching", JSON.stringify(params), err);
+            log.error("Error while fetching item", JSON.stringify(params), err);
             throw err;
         })
-        .then(data => data.Items as T[] || []);
+        .then(data => {
+            log.debug("Query succuss", JSON.stringify(params));
+            return data;
+        });
 };
+
+
 
 export const getAll = async <T>(params: DocumentClient.ScanInput): Promise<T[]> => {
     let result = [] as T[];
@@ -70,4 +99,39 @@ export const getAll = async <T>(params: DocumentClient.ScanInput): Promise<T[]> 
     while (typeof data.LastEvaluatedKey != "undefined") ;
 
     return result;
+};
+
+
+export const update = async (params: DocumentClient.UpdateItemInput): Promise<DocumentClient.UpdateItemOutput> => {
+    return dynamoDbClient.update(params).promise()
+        .catch(err => {
+            log.error("Error while updating in ", params.TableName, err);
+            throw err;
+        })
+        .then(data => {
+            log.debug("Updated", JSON.stringify(params));
+            return data;
+        });
+};
+
+export const prepQueryParams = (
+    tableName: string,
+    query: string,
+    queryParams: any,
+    scanIndexForward?: boolean,
+    limit?: number,
+    filterExpression?: string,
+    indexName?: string,
+    lastEvaluateKey?: DocumentClient.Key): DocumentClient.QueryInput => {
+
+    return {
+        TableName: tableName,
+        KeyConditionExpression: query,
+        ExpressionAttributeValues: queryParams,
+        Limit: limit,
+        ScanIndexForward: scanIndexForward,
+        FilterExpression: filterExpression,
+        IndexName: indexName,
+        ExclusiveStartKey: lastEvaluateKey
+    };
 };
