@@ -4,7 +4,7 @@ export interface getDetailModel {
     ssn: string,
 }
 
-export interface getDetailResult {
+export interface getDetailResult extends getDetailModel{
     cursor?: any;
     getDetail: getDetailModel[];
 }

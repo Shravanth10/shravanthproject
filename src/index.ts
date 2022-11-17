@@ -82,33 +82,6 @@ export const shravanthDeleteItems = async (event: APIGatewayProxyEvent): Promise
 
 }
 
-export const shravanthGetallItems = async (event: APIGatewayProxyEvent): Promise<APIGatewayResponse> => {
-    if(!process.env.MyTable){
-        return prepResponse(400, {
-            message: `Table Name not found`
-        });
-    }
-
-    try {
-        let records = await table.getDetails();
-        if (!records) {
-            return prepResponse(400, {
-                message: `No Items Found: ${JSON.stringify(records)}`
-            })
-        } else {
-            return prepResponse(200, {
-                message: `Items fetched successfully: ${JSON.stringify(records)}`
-            })
-        }
-    }
-    catch (err) {
-        console.log(err)
-        return prepResponse(200,{
-            message: JSON.stringify(`Failed to fetch value from the database`)
-        })
-    }
-}
-
 export const shravanthQueryItems = async (event: APIGatewayProxyEvent): Promise<APIGatewayResponse> => {
     let FName = event.pathParameters?.FName;
 

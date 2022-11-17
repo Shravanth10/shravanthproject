@@ -1,4 +1,4 @@
-import {prepResponse} from "../utils/APIGatewayResponse";
+import {prepResponse} from '../utils/APIGatewayResponse';
 import {log} from "../utils/logger";
 import * as db from "../utils/db";
 import {Form} from "../src";
@@ -122,7 +122,7 @@ export class table1 {
             limit
         );
         if (typeof cursor === "string") {
-            params = {...params, ExclusiveStartKey: getDecodedCursor(cursor)}
+            params = {...params, ExclusiveStartKey: getDecodedCursor(cursor)} //ExclusiveStartKey is of type key so string is not assignable
         }
         let data = await db.dynamoDbClient.query(params).promise();
         detailResult.getDetail = data.Items as getDetailModel[]

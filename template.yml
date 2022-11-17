@@ -15,9 +15,9 @@ Resources:
   shravanthPutItems:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./target/src/index.shravanthPutItems
+      Handler: ./dist/putItems/putItems.shravanthPutItems
       Runtime: nodejs16.x
-      CodeUri: .
+      CodeUri: ./dist/putItems
       Environment:
         Variables:
           MyTable: !Ref shravanthTable
@@ -34,9 +34,9 @@ Resources:
   shravanthGetItemsWithLimit:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./target/src/index.shravanthGetItemsWithLimit
+      Handler: ./dist/getItemsWithLimit/getItemsWithLimit.shravanthGetItemsWithLimit
       Runtime: nodejs16.x
-      CodeUri: .
+      CodeUri: ./dist/getItemsWithLimit
       Environment:
         Variables:
           MyTable: !Ref shravanthTable
@@ -50,31 +50,31 @@ Resources:
             Path: /FName/{FName}/FetchShravanthFormWithLimit
             Method: GET
 
-    shravanthUpdateItems:
-      Type: AWS::Serverless::Function
-      Properties:
-        Handler: ./target/src/index.shravanthUpdateItems
-        Runtime: nodejs16.x
-        CodeUri: .
-        Environment:
-          Variables:
-            MyTable: !Ref shravanthTable
-        Policies:
-          - DynamoDBCrudPolicy:
-              TableName: !Ref shravanthTable
-        Events:
-          PostShravanthTable:
-            Type: Api
-            Properties:
-              Path: /FName/{FName}/LName/{LName}/ssn/{ssn}/UpdateShravanthForm
-              Method: POST
+  shravanthGetAllItemsWithLimit:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/lambdaReinvoke/getAllWithLimit.shravanthGetAllItemsWithLimit
+      Runtime: nodejs16.x
+      CodeUri: ./dist/lambdaReinvoke
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/FetchShravanthFormWithLimit
+            Method: GET
 
   shravanthQueryItems:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./target/src/index.shravanthQueryItems
+      Handler: ./dist/queryItems/queryItems.shravanthQueryItems
       Runtime: nodejs16.x
-      CodeUri: .
+      CodeUri: ./dist/queryItems
       Environment:
         Variables:
           MyTable: !Ref shravanthTable
@@ -87,13 +87,31 @@ Resources:
           Properties:
             Path: /FName/{FName}/shravanthQueryItems
             Method: GET
+  shravanthUpdateItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/updateItems/updateItems.shravanthUpdateItems
+      Runtime: nodejs16.x
+      CodeUri: ./dist/updateItems
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/{FName}/LName/{LName}/ssn/{ssn}/UpdateShravanthForm
+            Method: POST
 
   shravanthDeleteItems:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: ./target/src/index.shravanthDeleteItems
+      Handler: ./dist/deleteItems/deleteItems.shravanthDeleteItems
       Runtime: nodejs16.x
-      CodeUri: .
+      CodeUri: ./dist/deleteItems
       Environment:
         Variables:
           MyTable: !Ref shravanthTable
@@ -106,25 +124,6 @@ Resources:
           Properties:
             Path: /FName/{FName}/ssn/{ssn}/DeleteShravanthForm
             Method: DELETE
-
-  shravanthGetallItems:
-    Type: AWS::Serverless::Function
-    Properties:
-      Handler: ./target/src/index.shravanthGetallItems
-      Runtime: nodejs16.x
-      CodeUri: .
-      Environment:
-        Variables:
-          MyTable: !Ref shravanthTable
-      Policies:
-        - DynamoDBCrudPolicy:
-            TableName: !Ref shravanthTable
-      Events:
-        PostShravanthTable:
-          Type: Api
-          Properties:
-            Path: /
-            Method: GET
 
   DynamoDBTable:
     Type: AWS::DynamoDB::Table
@@ -142,4 +141,5 @@ Resources:
           KeyType: RANGE
 
       BillingMode: PAY_PER_REQUEST
+
 

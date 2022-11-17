@@ -2,16 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab386a53-cb6e-4623-831b-a94a2e7c6bca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Modules/model.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/commons.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webpack.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/deleteItems/deleteItems.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/getItemsWithLimit/getItemsWithLimit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/lambdaReinvoke/getAllWithLimit.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/putItems/putItems.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/queryItems/queryItems.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/updateItems/updateItems.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Modules/model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Modules/model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/src/index.spec.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/utils/generateContext.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/utils/generateGatewayProxyEvent.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dao/dao.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dao/dao.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/template.yml" beforeDir="false" afterPath="$PROJECT_DIR$/template.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/db.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/db.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/logger.ts" beforeDir="false" afterPath="$PROJECT_DIR$/utils/logger.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,11 +55,11 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanthproject&quot;,
     &quot;nodejs.jest.jest_package&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/node_modules/jest&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanth-project/node_modules/typescript/lib&quot;
+    &quot;ts.external.directory.path&quot;: &quot;/Users/shravanth/Documents/aws-projects/shravanthproject/node_modules/typescript/lib&quot;
   }
 }</component>
   <component name="RecentsManager">
@@ -56,8 +67,11 @@
       <recent name="$PROJECT_DIR$/utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
-      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/updateItems" />
+      <recent name="$PROJECT_DIR$/src/queryItems" />
+      <recent name="$PROJECT_DIR$/src/putItems" />
+      <recent name="$PROJECT_DIR$/src/getItemsWithLimit" />
+      <recent name="$PROJECT_DIR$/src/deleteItems" />
     </key>
   </component>
   <component name="RunManager" selected="Jest.Deletion via taskID Status Test Suite.test 1">
@@ -109,6 +123,14 @@
       <workItem from="1666293104807" duration="4325000" />
       <workItem from="1666849537845" duration="321000" />
       <workItem from="1667410939889" duration="16188000" />
+      <workItem from="1667491688791" duration="4776000" />
+      <workItem from="1667888351593" duration="2568000" />
+      <workItem from="1668014103075" duration="14271000" />
+      <workItem from="1668087659016" duration="3470000" />
+      <workItem from="1668094134324" duration="6525000" />
+      <workItem from="1668410639181" duration="657000" />
+      <workItem from="1668596300821" duration="299000" />
+      <workItem from="1668599525878" duration="15559000" />
     </task>
     <task id="LOCAL-00001" summary="add package.json">
       <created>1665475366864</created>

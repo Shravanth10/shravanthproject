@@ -122,7 +122,8 @@ export const prepQueryParams = (
     limit?: number,
     filterExpression?: string,
     indexName?: string,
-    lastEvaluateKey?: DocumentClient.Key): DocumentClient.QueryInput => {
+    lastEvaluateKey?: DocumentClient.Key):
+    DocumentClient.QueryInput => {
 
     return {
         TableName: tableName,
