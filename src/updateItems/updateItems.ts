@@ -1,5 +1,5 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
-import {APIGatewayResponse, prepResponse} from "../../utils/APIGatewayResponse";
+import {APIGatewayResponse, prepResponse} from "../utils/APIGatewayResponse";
 import {table1} from "../../dao/dao";
 const table = new table1();
 
@@ -9,7 +9,7 @@ export const shravanthUpdateItems = async (event: APIGatewayProxyEvent): Promise
     let ssn = event.pathParameters?.ssn;
     let LName = event.pathParameters?.LName;
 
-    if(!FName || ssn || LName)
+    if(!FName || !ssn || !LName)
     {
         return prepResponse(400, {
             message: `Invalid API request, mandatory parameters/body missing.`

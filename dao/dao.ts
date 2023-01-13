@@ -1,9 +1,9 @@
-import {prepResponse} from '../utils/APIGatewayResponse';
-import {log} from "../utils/logger";
-import * as db from "../utils/db";
+import {prepResponse} from '../src/utils/APIGatewayResponse';
+import {log} from "../src/utils/logger";
+import * as db from "../src/utils/db";
 import {Form} from "../src";
 import {getDetailModel, getDetailResult} from "../Modules/model";
-import {getDecodedCursor, getEncodedCursor} from "../utils/commons";
+import {getDecodedCursor, getEncodedCursor} from "../src/utils/commons";
 
 export class table1 {
     private readonly tableName: string;
@@ -14,7 +14,7 @@ export class table1 {
         } else if (process.env.MyTable) {
             this.tableName = process.env.MyTable;
         } else {
-            throw new Error("");
+            throw new Error("Table not found");
         }
     };
 
@@ -33,7 +33,7 @@ export class table1 {
         try{
             let params = db.prepPutParams(this.tableName,Form);
             log.info(`Inserting data to table: ${JSON.stringify(Form)}`)
-            return db.put(params)
+            return await db.put(params)
         }catch (error){
             let errorMsg = `Error while inserting the table`;
         }
@@ -107,7 +107,7 @@ export class table1 {
             { "LName": "LName"},
             { ":LName": LName}
         )
-        return db.update(params);
+        return await db.update(params);
     }
 
     getDetailsWithLimit = async (FName: string, limit: number, cursor: string | undefined) => {

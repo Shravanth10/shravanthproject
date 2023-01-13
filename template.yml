@@ -10,6 +10,15 @@ Parameters:
     AllowedPattern: ^[A-Za-z]+$
     ConstraintDescription: 'Required parameter. Must be characters only. No numbers allowed.'
 
+  shravanthSQSTable:
+    Type: String
+    Default: 'shravanthSQSTable'
+    Description: created a demo table
+    MinLength: 3
+    MaxLength: 50
+    AllowedPattern: ^[A-Za-z]+$
+    ConstraintDescription: 'Required parameter. Must be characters only. No numbers allowed.'
+
 
 Resources:
   shravanthPutItems:
@@ -66,8 +75,77 @@ Resources:
         PostShravanthTable:
           Type: Api
           Properties:
-            Path: /FName/{FName}/FetchShravanthFormWithLimit
+            Path: /FName/{FName}/FetchShravanthFormAllWithLimit
             Method: GET
+
+  MyApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+
+  SAMLogs:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: ShravanthStateMachine
+
+
+  ShravanthStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Type: EXPRESS
+      DefinitionUri: src/stateMachineImplementation/validator.asl.json
+      DefinitionSubstitutions:
+        shravanthGetItems: !GetAtt shravanthGetItems.Arn
+      Events:
+        ValidationApiEvent:
+          Type: Api
+          Properties:
+            Method: post
+            Path: /validate
+            RestApiId:
+              Ref: MyApi
+      Logging:
+        Destinations:
+          - CloudWatchLogsLogGroup:
+              LogGroupArn: !GetAtt SAMLogs.Arn
+        IncludeExecutionData: true
+        Level: ALL
+      Policies:
+        - LambdaInvokePolicy:
+            FunctionName: !Ref shravanthGetItems
+        - CloudWatchLogsFullAccess
+
+  shravanthGetItems:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/stateMachineImplementation/getItems.shravanthGetItems
+      Runtime: nodejs16.x
+      CodeUri: ./dist/stateMachineImplementation
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthTable
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /FName/shravanthstepfunction
+            Method: POST
+
+  errorHandling:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/stateMachineImplementation/errorHandling.errorHandling
+      Runtime: nodejs16.x
+      CodeUri: ./dist/stateMachineImplementation
+      Events:
+        PostShravanthTable:
+          Type: Api
+          Properties:
+            Path: /errorHandling
+            Method: POST
 
   shravanthQueryItems:
     Type: AWS::Serverless::Function
@@ -87,6 +165,7 @@ Resources:
           Properties:
             Path: /FName/{FName}/shravanthQueryItems
             Method: GET
+
   shravanthUpdateItems:
     Type: AWS::Serverless::Function
     Properties:
@@ -139,7 +218,68 @@ Resources:
           KeyType: HASH
         - AttributeName: ssn
           KeyType: RANGE
-
       BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+
+  shravanthDynamoDbSqs:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/dynamoDbSQS/dynamoDbSQS.shravanthDynamoDbSqs
+      Runtime: nodejs16.x
+      CodeUri: ./dist/dynamoDbSQS
+      Environment:
+        Variables:
+          shravanthSQSQueue: !Ref shravanthSQSQueue
+      Policies:
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt shravanthSQSQueue.QueueName
+      Events:
+        Stream:
+          Type: DynamoDB
+          Properties:
+            Stream: !GetAtt DynamoDBTable.StreamArn
+            StartingPosition: TRIM_HORIZON
+
+  shravanthSqsToDynamoDb:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: ./dist/shravanthSqsToDynamoDb/shravanthSqsToDynamoDb.shravanthProcessMessageFromQueue
+      Runtime: nodejs16.x
+      CodeUri: ./dist/shravanthSqsToDynamoDb
+      Environment:
+        Variables:
+          MyTable: !Ref shravanthSQSTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref shravanthSQSTable
+      Events:
+        PollFromQueue:
+          Type: SQS
+          Properties:
+            Enabled: true
+            Queue: !GetAtt shravanthSQSQueue.Arn
+
+  DynamoDBTable2:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Ref shravanthSQSTable
+      AttributeDefinitions:
+        - AttributeName: FName
+          AttributeType: S
+        - AttributeName: ssn
+          AttributeType: S
+      KeySchema:
+        - AttributeName: FName
+          KeyType: HASH
+        - AttributeName: ssn
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
+  shravanthSQSQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: shravanthSQSQueue
+      VisibilityTimeout: 30
 
 

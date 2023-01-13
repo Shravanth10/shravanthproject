@@ -1,6 +1,6 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
-import {APIGatewayResponse, prepResponse} from "../../utils/APIGatewayResponse";
-import {log} from "../../utils/logger";
+import {APIGatewayResponse, prepResponse} from "../utils/APIGatewayResponse";
+import {log} from "../utils/logger";
 import {Form} from "../index";
 import {table1} from "../../dao/dao";
 const table = new table1();
@@ -36,8 +36,7 @@ export const shravanthPutItems = async (event: APIGatewayProxyEvent): Promise<AP
     }
     catch (err) {
         console.log(err)
-
-        return prepResponse(200,{
+        return prepResponse(400,{
             message: JSON.stringify(`Failed to insert value to database`)
         })
     }

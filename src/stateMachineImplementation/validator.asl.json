@@ -1,0 +1,36 @@
+{
+  "Comment": "Step function to execute lengthy synchronous requests",
+  "StartAt": "StartProcessing",
+  "States": {
+    "StartProcessing": {
+      "Type": "Task",
+      "Resource": "arn:aws:states:::lambda:invoke",
+      "Parameters": {
+        "FunctionName": "${shravanthGetItems}"
+      },
+      "InputPath": "$.lambda",
+      "ResultPath": "$.lambda",
+      "Next": "VerifyProcessor"
+    },
+    "VerifyProcessor": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.lambda.cursor",
+          "IsNull": false,
+          "Next": "StartProcessing"
+        },
+        {
+          "Variable": "$.lambda.cursor",
+          "IsNull": true,
+          "Next": "EndOfUpdate"
+        }
+      ]
+    },
+    "EndOfUpdate": {
+      "Type": "Pass",
+      "Result": "ProcessingComplete",
+      "End": true
+    }
+  }
+}

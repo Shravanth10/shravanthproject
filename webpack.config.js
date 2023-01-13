@@ -5,16 +5,15 @@ const TerserPlugin = require('terser-webpack-plugin');
 
 const file = fs.readFileSync(path.join(__dirname, "template.yml"), { encoding: "utf-8" });
 const template = yamlParse(file);
-console.log(template)
 const entries = Object
     .entries(template.Resources)
     .reduce((acc, [_, { Type, Properties: { Handler } }]) => {
         if (Type === "AWS::Serverless::Function") {
-            acc[Handler.split(".")[1]] = Handler.replace("dist", "src").replace("bundle","index").replace(/[^.]+$/, "ts");
+            acc[Handler.split(".")[1]] = Handler.replace("dist", "src").replace(/[^.]+$/, "ts");
+            console.log(acc)
         }
         return acc;
     }, {});
-console.log(entries)
 module.exports = {
     entry: entries,
     target: "node",

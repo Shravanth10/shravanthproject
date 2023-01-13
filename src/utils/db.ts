@@ -9,7 +9,6 @@ export const prepPutParams = (tableName: string, item: object): DocumentClient.P
         TableName: tableName,
         Item: item,
     };
-
 };
 
 export const put = async (params: DocumentClient.PutItemInput): Promise<DocumentClient.PutItemOutput> => {

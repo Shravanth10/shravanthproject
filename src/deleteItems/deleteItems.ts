@@ -1,5 +1,5 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
-import {APIGatewayResponse, prepResponse} from "../../utils/APIGatewayResponse";
+import {APIGatewayResponse, prepResponse} from "../utils/APIGatewayResponse";
 import {table1} from "../../dao/dao";
 const table = new table1();
 

@@ -1,28 +1,28 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
-import {APIGatewayResponse, prepResponse} from "../../utils/APIGatewayResponse";
-import {getDetailModel, getDetailResult} from "../../Modules/model";
+import {APIGatewayResponse, prepResponse} from "../utils/APIGatewayResponse";
+import {getDetailResult} from "../../Modules/model";
 import {table1} from "../../dao/dao";
-import {Form} from "../index";
+import {queueItems} from "../index";
+import {addToQueue} from "../utils/sqs-write";
 const table = new table1();
 
-export interface queueItems{
-    cursor?: string,
-    FName: string,
-    LName: string,
-    ssn: string
-}
+const sqsQueue = process.env.SqsQueue!;
 
 export const shravanthGetAllItemsWithLimit = async (event: APIGatewayProxyEvent): Promise<APIGatewayResponse> => {
     let FName = event.pathParameters?.FName;
     let cursor = null;
     const limit = 1;
-    let result =[];
-
+    let result = []
 
     if(!FName)
     {
         return prepResponse(400, {
             message: `Invalid API request, mandatory parameters/body missing.`
+        });
+    }
+    if(!sqsQueue){
+        return prepResponse(400, {
+            message: `sqs queue not found`
         });
     }
 
@@ -32,9 +32,13 @@ export const shravanthGetAllItemsWithLimit = async (event: APIGatewayProxyEvent)
         });
     }
     let record :getDetailResult = await table.getDetailsWithLimit(FName, limit, cursor);
-    cursor= record.cursor;
-    let details : getDetailModel = record.getDetail;
-
-
-
+    result.push(record)
+    let queueRecords : queueItems = {
+        details: record,
+        cursor:record.cursor
+    }
+    await addToQueue(sqsQueue,JSON.stringify(queueRecords));
+    return prepResponse(200, {
+        message: `Items fetched successfully ${JSON.stringify(result)}`
+    });
 }

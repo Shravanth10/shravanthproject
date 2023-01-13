@@ -1,6 +1,6 @@
 import {APIGatewayProxyEvent} from "aws-lambda";
-import {APIGatewayResponse, prepResponse} from "../utils/APIGatewayResponse";
-import {log} from "../utils/logger";
+import {APIGatewayResponse, prepResponse} from "./utils/APIGatewayResponse";
+import {log} from "./utils/logger";
 import {table1} from "../dao/dao"
 import {getDetailResult} from "../Modules/model";
 
@@ -11,6 +11,11 @@ export interface Form{
     LName: string,
     ssn: string
 };
+
+export interface queueItems{
+    cursor?: string,
+    details: getDetailResult
+}
 
 export const shravanthPutItems = async (event: APIGatewayProxyEvent): Promise<APIGatewayResponse> => {
     let FName = event.pathParameters?.FName;
